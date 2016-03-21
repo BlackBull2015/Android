@@ -34,6 +34,13 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="cnt2"
+            android:id="@+id/button16" android:layout_gravity="center_horizontal"
+            android:onClick="connect2"/>
+    <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="KillCon"
             android:id="@+id/button12" android:layout_gravity="center_horizontal"
             android:onClick="kill"/>
