@@ -10,4 +10,46 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="BLUETOOTH TO BE CONTINUED"
             android:id="@+id/textView5" android:layout_gravity="center_horizontal"/>
+    <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="paried"
+            android:id="@+id/button13" android:layout_gravity="center_horizontal"
+            android:onClick="paried"/>
+    <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="discover"
+            android:id="@+id/button14" android:layout_gravity="center_horizontal"
+            android:onClick="discover"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="connect"
+            android:id="@+id/button11" android:layout_gravity="center_horizontal"
+            android:onClick="connect"/>
+    <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="KillCon"
+            android:id="@+id/button12" android:layout_gravity="center_horizontal"
+            android:onClick="kill"/>
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/TextArea1" android:layout_gravity="center_horizontal"/>
+    <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send"
+            android:id="@+id/button15" android:layout_gravity="center_horizontal"
+            android:onClick="SendData"/>
+    <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listView" android:layout_gravity="center_horizontal"/>
 </LinearLayout>
