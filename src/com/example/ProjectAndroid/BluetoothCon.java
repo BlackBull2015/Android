@@ -14,9 +14,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.*;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Set;
 import java.util.UUID;
 
@@ -39,7 +38,9 @@ public class BluetoothCon extends Activity {
 
 
     OutputStream outStream;
+    InputStream inStream;
 
+    TextView txtv;
 
 //   ConnectThread connect;
    // ConnectedThread running;
@@ -51,12 +52,14 @@ public class BluetoothCon extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bluetooth);
-        lvt = (ListView) findViewById(R.id.listView);
+     //   lvt = (ListView) findViewById(R.id.listView);
 
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         mArrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1);
-        lvt.setAdapter(mArrayAdapter);
+        //lvt.setAdapter(mArrayAdapter);
+
+        txtv = (TextView)findViewById(R.id.textView6);
 
         SettingUp();
 //
@@ -91,10 +94,8 @@ public class BluetoothCon extends Activity {
     }
 
 
-    public void connect2(View v){
-//        Log.v(TAG, "Socket created");
-//        running = new ConnectedThread(runningsocket);
-//        running.run();
+    public void readall (View v){
+        new ReadAllData().execute("run");
     }
 
 
@@ -103,28 +104,60 @@ public class BluetoothCon extends Activity {
     private class backgroundAsyncTask extends AsyncTask<String, Void, String> {
 
         @Override
-        protected void onPreExecute() {
-
-        }
-
-
+        protected void onPreExecute() { }
         @Override
         protected String doInBackground(String... params) {
-
-
 
             try {
                 masterdevice = mBluetoothAdapter.getRemoteDevice(address);
                 runningsocket = masterdevice.createRfcommSocketToServiceRecord(MY_UUID);
                 runningsocket.connect();
                 outStream = runningsocket.getOutputStream();
+                inStream = runningsocket.getInputStream();
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-
             return "";
+        }// doInBackground
+
+    }// backgroundAsyncTask
+
+    private class ReadAllData extends AsyncTask<String, String, String> {
+
+        @Override
+        protected void onProgressUpdate(String... value) {
+            super.onProgressUpdate(value);
+            txtv.append(value[0]);
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+
+            String str = "";
+            while(true){
+
+                try {
+                //    Log.e(TAG, "In loop ");
+                    int bytesAvailable = inStream.available();
+                //    Log.e(TAG, "Read length to read" + bytesAvailable);
+                    if(bytesAvailable > 0) {
+                        Log.e(TAG, "Reading bytes");
+                        byte[] packetBytes = new byte[bytesAvailable];
+                        Log.e(TAG, "Created array ");
+                        inStream.read(packetBytes);
+                        Log.e(TAG, "Read incoming data");
+                        str = new String(packetBytes, StandardCharsets.UTF_8);
+                        Log.e(TAG, "Encoded string" + str);
+                        publishProgress(str);
+                        Log.e(TAG, "Sent to text view");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
         }// doInBackground
 
     }// backgroundAsyncTask

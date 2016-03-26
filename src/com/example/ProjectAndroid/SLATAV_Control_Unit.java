@@ -20,7 +20,7 @@ import java.io.OutputStream;
 import java.util.UUID;
 
 public class SLATAV_Control_Unit extends Activity {
-    
+
     BluetoothAdapter mBluetoothAdapter;
     BluetoothSocket runningsocket;
     BluetoothDevice masterdevice;
